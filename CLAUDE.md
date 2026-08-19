@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository. See `AGENTS.md` for the shorter, complementary guide aimed at agents that just want to
+*run* Strix (as a scanning tool against some other target) rather than modify this codebase.
 
 ## What this is
 
@@ -106,6 +108,9 @@ up the interception proxy inside the sandbox. `backends.py` supports pluggable e
   (up to 5 at a time) for deep, task-specific expertise: `/vulnerabilities`, `/frameworks`,
   `/technologies`, `/protocols`, `/tooling`, `/cloud`, `/reconnaissance`, `/custom`. Loaded via the
   `load_skill` tool and injected into that agent's system prompt. See `strix/skills/README.md`.
+  Two more categories, `/scan_modes` and `/coordination`, aren't agent-selectable — `prompt.py`'s
+  `_resolve_skills` auto-injects `scan_modes/<mode>` for every agent and `coordination/root_agent`
+  (or `coordination/source_aware_whitebox` for whitebox scans) for the root agent.
 - **`skills/`** (repo root) — consumer-facing Agent Skills (SKILL.md) installed into *coding
   agents* like Claude Code via `npx skills add usestrix/strix`, teaching them to drive Strix itself
   (`penetration-testing-with-strix`, `managed-pentesting-with-strix`,
